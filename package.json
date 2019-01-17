@@ -1,0 +1,23 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "A app for learning",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "check:email": " node extra/utils/validation.js",
+    "has:permission": "node extra/utils/permissions.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adilsuccessive/express-server.git"
+  },
+  "author": "Mohammad Adil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adilsuccessive/express-server/issues"
+  },
+  "homepage": "https://github.com/adilsuccessive/express-server#readme"
+}
