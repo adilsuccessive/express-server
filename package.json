@@ -4,13 +4,12 @@
   "description": "A app for learning",
   "main": "index.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
   "scripts": {
-    "check:email": " node extra/utils/validation.js",
-    "has:permission": "node extra/utils/permissions.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "pattern:diamond": "nodemon extra/patterns/diamond.js",
-    "pattern:equilateral": "nodemon extra/patterns/equilateral.js"
+    "dev": "babel-node extra --presets env"
   },
   "repository": {
     "type": "git",

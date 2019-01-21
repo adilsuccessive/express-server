@@ -1,5 +1,8 @@
-function diamond(n) {
-  let a = "", i, j, k;
+export default function diamond(n) {
+  let a = "",
+    i,
+    j,
+    k;
 
   for (i = 0; i < n; i++) {
     for (j = 0; j < n - i - 1; j++) {
@@ -20,7 +23,6 @@ function diamond(n) {
     }
     a += "\n";
   }
+  console.log("Print a diamond with rows", n);
   console.log(a);
 }
-diamond(5);
-diamond(3);
