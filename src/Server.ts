@@ -1,7 +1,8 @@
+import { IConfig } from "./config/IConfig";
 import * as express from "express";
-class Server {
+export default class Server {
   private app: express.Express;
-  constructor(private config) {
+  constructor(private config: IConfig) {
     this.app = express();
   }
   public bootstrap() {
@@ -24,4 +25,3 @@ class Server {
     });
   }
 }
-export default Server;

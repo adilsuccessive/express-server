@@ -17,7 +17,10 @@
   "scripts": {
     "dev": "babel-node extra --presets env",
     "nodemon": "nodemon ./dist/index.js",
-    "start": "tsc-watch --project . --onSuccess \"npm run nodemon\""
+    "extra:ts": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
+    "start": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
+    "prestart": "npm run clean",
+    "clean": "rm -r dist"
   },
   "repository": {
     "type": "git",
