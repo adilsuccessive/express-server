@@ -2,6 +2,7 @@ import * as bodyParser from "body-parser";
 import { IConfig } from "./config/IConfig";
 import * as express from "express";
 import { notFoundRoute, errorHandler } from "./libs/routes";
+import { router } from './router'
 export default class Server {
   private app: express.Express;
   constructor(private config: IConfig) {
@@ -22,6 +23,8 @@ export default class Server {
     app.use("/health-check", (req, res) => {
       res.send("I am Ok");
     });
+
+    app.use("/api", router);
     app.use(notFoundRoute);
     app.use(errorHandler);
   }
