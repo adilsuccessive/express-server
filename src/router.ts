@@ -1,4 +1,4 @@
-import { Router, Request, Response }  from 'express'
+import { Router }  from 'express'
 import traineeRouter from './controllers/trainee'
 import userRouter from './controllers/user'
 
