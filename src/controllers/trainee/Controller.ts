@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import successHandler from "../../libs/routes/successHandler";
-
 class TraineeController {
   get(req, res) {
     const data = [
@@ -24,11 +23,7 @@ class TraineeController {
         error: "Bad request"
       });
     } else {
-      res.status(200).send({
-        status: "ok",
-        message: "Successfully Created trainee",
-        data: { name, id }
-      });
+      res.status(200).send(successHandler("Successfully created trainee", 200, {name, id}));
     }
   }
   put(req: Request, res: Response, next: NextFunction) {
@@ -39,9 +34,9 @@ class TraineeController {
     const { name, id } = req.body;
     if (id == data.id) {
       data.name = name;
-      res.status(200).send({ status: "OK", message: "name Updated" });
+      res.status(200).send(successHandler("Updated Trainee",200 , data));
     } else
-      res.status(400).send({ status: "Bad request", message: "id not found" });
+      next({status: 400, message: "id not found", error:"Bad request"});
   }
   delete(req: Request, res: Response, next: NextFunction) {
     const data = {
@@ -50,9 +45,9 @@ class TraineeController {
     };
     const { id } = req.body;
     if (id == data.id) {
-      res.status(200).send({ status: "Ok", message: "Deleted" });
+      res.status(200).send(successHandler("Deleted Trainee", 200, data));
     } else
-      res.status(400).send({ status: "Bad Request", message: "id not found" });
+      next({status: 400, message: "id not found", error:"Bad request"});
   }
 }
 
