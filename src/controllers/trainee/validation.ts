@@ -6,12 +6,12 @@ const validation = {
       in: ["body"],
       custom: function(value) {
         console.log("Value", value);
-        throw { error: "Error Occured", message: "Message" };
-      }
+    
+      },
     },
     name: {
       required: true,
-      regex: "",
+      regex: /^[A-Za-z]{2,30}$/,
       in: ["body"],
       errorMessage: "Name is required"
     }
@@ -20,7 +20,7 @@ const validation = {
     id: {
       required: true,
       errorMessage: "Id is required",
-      in: ["params"]
+      in: ["params"],
     }
   },
   get: {
@@ -49,7 +49,9 @@ const validation = {
       in: ["body"],
       required: true,
       isObject: true,
-      custom: function(dataToUpdate) {}
+      custom: function(dataToUpdate) {
+        console.log("customFn",dataToUpdate)
+      }
     }
   }
 };
