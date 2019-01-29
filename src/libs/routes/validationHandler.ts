@@ -43,8 +43,7 @@ export default config => (req, res, next) => {
       req.query.skip = 0;
       req.query.limit = 10;
     }
-    console.log(req.query.skip);
-    console.log(req.query.limit);
+  
   });
   next();
 };
