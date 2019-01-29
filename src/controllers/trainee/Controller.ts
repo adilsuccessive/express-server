@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import successHandler from "../../libs/routes/successHandler";
+import { successHandler } from "../../libs/routes";
 class TraineeController {
   get(req, res) {
     const data = [
@@ -48,7 +48,7 @@ class TraineeController {
       name: "trainee4",
       id: "4"
     };
-    const { id } = req.body;
+    const id = req.params.id;
     if (id != data.id) {
       return next({
         status: 400,
