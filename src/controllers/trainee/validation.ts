@@ -6,8 +6,7 @@ const validation = {
       in: ["body"],
       custom: function(value) {
         console.log("Value", value);
-    
-      },
+      }
     },
     name: {
       required: true,
@@ -20,7 +19,7 @@ const validation = {
     id: {
       required: true,
       errorMessage: "Id is required",
-      in: ["params"],
+      in: ["params"]
     }
   },
   get: {
@@ -50,7 +49,7 @@ const validation = {
       required: true,
       isObject: true,
       custom: function(dataToUpdate) {
-        console.log("customFn",dataToUpdate)
+        console.log("customFn", dataToUpdate);
       }
     }
   }
