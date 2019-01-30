@@ -2,7 +2,9 @@ import * as bodyParser from "body-parser";
 import { IConfig } from "./config/IConfig";
 import * as express from "express";
 import { notFoundRoute, errorHandler } from "./libs/routes";
-import { router } from './router'
+import { router } from "./router";
+import Database from "./libs/Database";
+
 export default class Server {
   private app: express.Express;
   constructor(private config: IConfig) {
@@ -29,12 +31,21 @@ export default class Server {
     app.use(errorHandler);
   }
   public run() {
-    const { app, config: { port } } = this;
-    app.listen(port, error => {
-      if (error) {
-        throw error;
-      }
-      console.log(`app is listening on port ${port}`);
-    });
+    const {
+      app,
+      config: { port, mongo_url }
+    } = this;
+    console.log(mongo_url);
+    Database.open(mongo_url).then(() => {
+      app.listen(port, error => {
+        if (error) {
+          throw error;
+        }
+  
+        console.log(`app is listening on port ${port}`);
+        Database.disconnect();
+      });
+    }).catch(() => { console.log("Error in Connection") })
+    
   }
 }
