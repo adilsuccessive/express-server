@@ -10,9 +10,20 @@ export default class UserRepository {
     constructor() {
         this.model = userModel;
     }
-    public create(data: any): Promise<IUserModel> {
+    public createUser(data: any): Promise<IUserModel> {
         console.log(data)
         return this.model.create({...data, _id:UserRepository.generateObjectId()})
         
     }
+    public delete(data) {
+        return this.model.deleteMany(data, err=>{})
+    }
+    public updateUser(oldData, newData ) {
+        return this.model.updateOne({name :oldData}, {name: newData}, err=>{} )
+    }
+    public getUser(data) {
+        return this.model.findById(data,err=>{})
+    }
+   
+    
 }
