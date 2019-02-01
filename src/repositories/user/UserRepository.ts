@@ -24,6 +24,12 @@ export default class UserRepository {
     public getUser(data) {
         return this.model.findById(data,err=>{})
     }
+    public count()  {
+        return this.model.count({})
+    }
+    public  findOne(query) {
+        return this.model.findOne(query);
+    }
    
     
 }
