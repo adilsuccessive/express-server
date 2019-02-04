@@ -1,10 +1,10 @@
-import { IConfig } from "./IConfig";
-import { config } from "dotenv";
+import { config } from 'dotenv';
+import { IConfig } from './IConfig';
 
 config();
 const configuration: IConfig = Object.freeze({
-  port: process.env.PORT,
+  mongo_url: process.env.MONGO_URL,
   node_env: process.env.NODE_ENV,
-  mongo_url: process.env.MONGO_URL
+  port: process.env.PORT,
 });
 export default configuration;

@@ -25,7 +25,9 @@
     "extra:ts": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
     "start": "tsc-watch --project . --onSuccess \"npm run nodemon\"",
     "prestart": "npm run clean",
-    "clean": "rm -r dist"
+    "clean": "rm -r dist",
+    "lint": "./node_modules/tslint/bin/tslint --fix -c tslint.json -p tsconfig.json --exclude 'node_modules/**/*.{j,t}s'",
+    "lint:fix": "yarn lint -- --fix"
   },
   "repository": {
     "type": "git",
