@@ -4,7 +4,7 @@ export const HeadTrainer: string = 'head-trainer';
 export const Trainer: string = 'trainer';
 export const Trainee: string = 'trainee';
 export const permissions: IPermissions = {
-  trainee: {
+  TRAINEE: {
     all: [HeadTrainer],
     delete: [],
     read: [Trainee, Trainer],

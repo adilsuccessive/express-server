@@ -11,7 +11,6 @@ export default class UserRepository {
     this.model = userModel;
   }
   public createUser(data: any): Promise<IUserModel> {
-    console.log(data);
     return this.model.create({
       ...data,
       _id: UserRepository.generateObjectId(),
@@ -45,7 +44,7 @@ export default class UserRepository {
   public count() {
     return this.model.count({});
   }
-  public findOne(query) {
+  public findone(query) {
     return this.model.findOne(query);
   }
 }

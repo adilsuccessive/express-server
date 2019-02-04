@@ -1,11 +1,10 @@
-// import { userSchema } from './../../repositories/user/UserModel';
 import * as jwt from 'jsonwebtoken';
 import UserRepository from './../../repositories/user/UserRepository';
 import hasPermission from './permissions';
 
 export default (module, permissionType) => (req, res, next) => {
   const token = req.header('Authorization');
-  console.log(token);
+  // console.log(token);
 
   // try {
   //   const user = jwt.verify(token, process.env.key);
@@ -19,18 +18,24 @@ export default (module, permissionType) => (req, res, next) => {
   // }
   // })
   const repository = new UserRepository();
+  try {
   const user = jwt.verify(token, process.env.key);
-  repository.findOne({ id: user.id }).then(use => {
-    console.log('User is', user);
-    if (!user) {
-      next({ error: 'Unauthorized Access', status: 403 });
-    }
-    if (hasPermission(module, user.role, permissionType)) {
-      console.log(module, 'has permission to', permissionType);
-    } else {
+  repository.findone({ _id: user._id }).then((result) => {
+    if (result.name !== module ) {
+      next({
+        error: 'Unauthorized Access',
+        message: 'User not match',
+        status: 403,
+      });
+    } else if (!hasPermission(module, result.role, permissionType)) {
       next({ status: 401, message: 'Wrong Permission' });
+    } else {
+      req.body = result.id;
+      next();
     }
   });
+} catch (err) {
+  next({ status: 403, message: 'Unauthorized Access'});
+}
 
-  next();
 };
