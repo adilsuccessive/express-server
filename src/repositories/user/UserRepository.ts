@@ -4,14 +4,12 @@ import { userModel } from './UserModel'
 export default class UserRepository {
     private model: mongoose.Model<IUserModel>;
     public static generateObjectId() {
-        console.log(mongoose.Types.ObjectId())
         return String(mongoose.Types.ObjectId());
     }
     constructor() {
         this.model = userModel;
     }
     public createUser(data: any): Promise<IUserModel> {
-        console.log(data)
         return this.model.create({...data, _id:UserRepository.generateObjectId()})
         
     }
@@ -23,7 +21,5 @@ export default class UserRepository {
     }
     public getUser(data) {
         return this.model.findById(data,err=>{})
-    }
-   
-    
+    } 
 }

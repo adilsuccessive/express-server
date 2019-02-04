@@ -25,7 +25,8 @@ class UserController {
   }
   delete(req: Request, res: Response) {
     const user = new UserRepository();
-    user.delete(req.params).then(data => {
+    const { id } = req.params;
+    user.delete({ _id : id }).then(data => {
       res.status(200).send(successHandler("User Deleted", 200, data));
     });
   }
