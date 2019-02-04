@@ -36,16 +36,18 @@ export default class Server {
       config: { port, mongo_url }
     } = this;
     console.log(mongo_url);
-    Database.open(mongo_url).then(() => {
-      app.listen(port, error => {
-        if (error) {
-          throw error;
-        }
-  
-        console.log(`app is listening on port ${port}`);
-        Database.disconnect();
+    Database.open(mongo_url)
+      .then(() => {
+        app.listen(port, error => {
+          if (error) {
+            throw error;
+          }
+
+          console.log(`app is listening on port ${port}`);
+        });
+      })
+      .catch(() => {
+        console.log("Error in Connection");
       });
-    }).catch(() => { console.log("Error in Connection") })
-    
   }
 }
