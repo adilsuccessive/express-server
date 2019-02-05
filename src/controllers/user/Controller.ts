@@ -5,7 +5,8 @@ import { successHandler } from '../../libs/routes';
 class UserController {
   public get(req: Request, res: Response) {
     const user = new UserRepository();
-    user.findone({_id: req.body}).then((data) => {
+    const  id  = req.body;
+    user.findOne({_id: id}).then((data) => {
       res.status(200).send(successHandler('User Data', 200, data));
     });
   }

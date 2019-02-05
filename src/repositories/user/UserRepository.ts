@@ -44,7 +44,7 @@ export default class UserRepository {
   public count() {
     return this.model.count({});
   }
-  public findone(query) {
+  public findOne(query) {
     return this.model.findOne(query);
   }
 }
