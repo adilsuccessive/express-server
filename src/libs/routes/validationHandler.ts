@@ -1,22 +1,22 @@
-export default config => (req, res, next) => {
-  console.log("inside validationHandler");
+export default (config) => (req, res, next) => {
+  console.log('inside validationHandler');
   const keys = Object.keys(config);
-  keys.forEach(key => {
+  keys.forEach((key) => {
     const item = config[key];
-    const values = item.in.map(item => {
+    const values = item.in.map((items) => {
       return req[item][key];
     });
 
     if (item && item.required) {
-      const validatedValues = values.filter(item => item);
+      const validatedValues = values.filter((items) => item);
       if (validatedValues.length !== values.length) {
         next({
           message: `${key} is Required` || item.errorMessage,
-          status: 400
+          status: 400,
         });
       }
       if (item.string) {
-        if (typeof validatedValues[0] != "string") {
+        if (typeof validatedValues[0] !== 'string') {
           next({ message: `${key} must be a string`, status: 400 });
         }
       }
@@ -27,7 +27,7 @@ export default config => (req, res, next) => {
         }
       }
       if (item.isObject) {
-        if (typeof validatedValues[0] != "object") {
+        if (typeof validatedValues[0] !== 'object') {
           next({ message: `${key} must be an object`, status: 400 });
         }
       }
@@ -43,7 +43,7 @@ export default config => (req, res, next) => {
       req.query.skip = 0;
       req.query.limit = 10;
     }
-  
+
   });
   next();
 };

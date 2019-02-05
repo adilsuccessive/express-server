@@ -6,4 +6,3 @@ export interface IPermissions {
       delete: string[];
     };
   }
-  
