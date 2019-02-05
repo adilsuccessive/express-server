@@ -1,7 +1,7 @@
-import * as mongoose from 'mongoose'
+import * as mongoose from 'mongoose';
 
 export default interface IVersionableModel extends mongoose.Document {
-    createdAt: Date,
-    deletedAt: Date,
-    originalId: string,
-} 
+    createdAt: Date;
+    deletedAt: Date;
+    originalId: string;
+}
