@@ -1,9 +1,9 @@
-import * as bodyParser from "body-parser";
-import { IConfig } from "./config/IConfig";
-import * as express from "express";
-import { notFoundRoute, errorHandler } from "./libs/routes";
-import { router } from "./router";
-import Database from "./libs/Database";
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import { IConfig } from './config/IConfig';
+import Database from './libs/Database';
+import { errorHandler, notFoundRoute } from './libs/routes';
+import { router } from './router';
 
 export default class Server {
   private app: express.Express;
@@ -15,30 +15,25 @@ export default class Server {
     this.setupRoutes();
     return this;
   }
-  private initBodyParser() {
-    const { app } = this;
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
-  }
   public setupRoutes() {
     const { app } = this;
-    app.use("/health-check", (req, res) => {
-      res.send("I am Ok");
+    app.use('/health-check', (req, res) => {
+      res.send('I am Ok');
     });
 
-    app.use("/api", router);
+    app.use('/api', router);
     app.use(notFoundRoute);
     app.use(errorHandler);
   }
   public run() {
     const {
       app,
-      config: { port, mongo_url }
+      config: { port, mongo_url },
     } = this;
     console.log(mongo_url);
     Database.open(mongo_url)
       .then(() => {
-        app.listen(port, error => {
+        app.listen(port, (error) => {
           if (error) {
             throw error;
           }
@@ -47,7 +42,12 @@ export default class Server {
         });
       })
       .catch(() => {
-        console.log("Error in Connection");
+        console.log('Error in Connection');
       });
+  }
+  private initBodyParser() {
+    const { app } = this;
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
   }
 }

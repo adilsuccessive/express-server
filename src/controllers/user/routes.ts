@@ -4,7 +4,7 @@ import user from './Controller';
 
 export const userRouter = express.Router();
 userRouter
-  .get('/', user.get)
+  .get('/', authMiddleWare('TRAINEE', 'read'), user.get)
   .post('/', user.post)
   .put('/', user.put)
-  .delete('/:id', user.delete);
+  .delete('/:_id', user.delete);
