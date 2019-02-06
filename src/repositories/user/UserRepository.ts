@@ -4,16 +4,16 @@ import IUserModel from './IUserModel';
 
 export default class UserRepository extends VersionRepository <IUserModel, mongoose.Model<IUserModel>> {
   public createUsers(data: any) {
-    return super.createUser(data);
+    return this.createUser(data);
   }
-  public updateData(olddata, newdata) {
-      return super.updateUser(olddata, newdata);
+  public updateData(data) {
+      return super.updateUser(data);
   }
   public deleteData(data) {
       return super.delete(data);
   }
   public findData(data) {
-      return super.findOne(data);
+      return this.findOne(data);
   }
   public countData() {
       return super.count();

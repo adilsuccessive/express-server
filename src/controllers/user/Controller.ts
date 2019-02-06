@@ -17,10 +17,9 @@ class UserController {
     });
   }
   public put(req: Request, res: Response) {
-    const { oldName, newName } = req.query;
-    console.log(req.query)
-    user.updateUser(oldName, newName).then((data) => {
-      res.status(200).send(successHandler('USer Updated', 200, data));
+    const { name1, id1 } = req.query;
+    user.updateUser({ _id: id1, name: name1}).then((data) => {
+      res.status(200).send(successHandler('User Updated', 200, data));
     });
   }
   public delete(req: Request, res: Response) {

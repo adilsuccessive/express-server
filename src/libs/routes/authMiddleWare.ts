@@ -22,7 +22,7 @@ export default (module, permissionType) => (req, res, next) => {
   try {
   const user = jwt.verify(token, process.env.key);
   const { _id } = user;
-  repository.findOne({ _id }).then((result) => {
+  repository.findOne({ _id}).then((result) => {
     if (result.name !== module ) {
       next({
         error: 'Unauthorized Access',

@@ -5,12 +5,12 @@ export default function seedData() {
   const user = new UserRepository(userModel);
   user.countData().then((res) => {
     if (res === 0) {
-      user.createUser({
+      user.createUsers({
         email: 'head.trainee@successive.tech',
         name: 'HEAD-TRAINEE',
         role: 'Head-Trainee',
       });
-      user.createUser({
+      user.createUsers({
         email: 'trainee@successive.tech',
         name: 'TRAINEE',
         role: 'trainee',

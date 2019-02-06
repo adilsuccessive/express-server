@@ -8,34 +8,35 @@ export default class VersionRepository<D extends mongoose.Document, M extends mo
     public generateObjectId() {
         return String(mongoose.Types.ObjectId());
     }
-    public createUser(data): Promise<D> {
+    public createUser(data: any): Promise<D> {
         const id = this.generateObjectId();
         console.log(id);
+        console.log(data);
         return this.model.create({...data, _id: id, originalId: id});
     }
     public delete(data) {
-        return this.model.deleteMany(data, (err) => {
-            if (err) {
-                console.log('Error');
-            }
+        console.log(data._id)
+        return this.findOne(data._id).then((result) => {
+            console.log(result,"4545455455")
+            console.log({_id: result._id})
+            this.model.updateOne( {_id: result._id}, {$set: {deletedAt: true}}, {upsert: true}, (err) => {
+                console.log('error'); } );
         });
       }
-      public updateUser(data, originalId) {
-        const user = this.findOne(originalId).then( (result) => {
-            console.log(user);
-            console.log(result)
-            this.createUser(result);
+      public updateUser(data) {
+        return this.findOne(data._id).lean()
+        .then( (result) => {
+           this.createUser(Object.assign(result, { name: data.name})).then( (result1) => {
+            this.model.updateOne( {_id: result1._id}, {originalId: data._id}, (err) => {
+                console.log('error');
+            } );
+           });
+           this.model.updateOne({_id: result._id},
+            {$set: { deletedAt: true}}, {upsert: true}).then((err) => {
+           console.log(err);
+       });
         });
 
-        return this.model.updateOne(
-          {  },
-          {  },
-          (err) => {
-              if (err) {
-                  console.log('Error');
-              }
-          },
-        );
       }
       public getUser(data) {
         return this.model.findById(data, (err) => {
@@ -48,6 +49,8 @@ export default class VersionRepository<D extends mongoose.Document, M extends mo
         return this.model.countDocuments();
       }
       public findOne(query) {
-        return this.model.findOne(query);
+        return this.model.findOne({originalId: query , deletedAt: undefined}, (err) => {
+            console.log('user not found');
+        });
       }
 }
