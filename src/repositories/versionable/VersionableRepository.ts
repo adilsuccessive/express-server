@@ -15,10 +15,9 @@ export default class VersionRepository<D extends mongoose.Document, M extends mo
         return this.model.create({...data, _id: id, originalId: id});
     }
     public delete(data) {
-        console.log(data._id)
+        console.log(data._id);
         return this.findOne(data._id).then((result) => {
-            console.log(result,"4545455455")
-            console.log({_id: result._id})
+            console.log({_id: result._id});
             this.model.updateOne( {_id: result._id}, {$set: {deletedAt: true}}, {upsert: true}, (err) => {
                 console.log('error'); } );
         });
@@ -27,7 +26,7 @@ export default class VersionRepository<D extends mongoose.Document, M extends mo
         return this.findOne(data._id).lean()
         .then( (result) => {
            this.createUser(Object.assign(result, { name: data.name})).then( (result1) => {
-            this.model.updateOne( {_id: result1._id}, {originalId: data._id}, (err) => {
+            this.model.updateOne( {_id: result1._id}, {originalId: data._id, createdAt: Date.now()}, (err) => {
                 console.log('error');
             } );
            });
