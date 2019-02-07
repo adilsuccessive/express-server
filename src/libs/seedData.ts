@@ -15,7 +15,7 @@ export default function seedData() {
         email: 'head.trainee@successive.tech',
         name: 'HEAD-TRAINEE',
         password: pass,
-        role: 'Head-Trainee',
+        role: 'HeadTrainer',
       });
       user.createUsers({
         email: 'trainee@successive.tech',

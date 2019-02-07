@@ -3,8 +3,8 @@ export default (config) => (req, res, next) => {
   const keys = Object.keys(config);
   keys.forEach((key) => {
     const item = config[key];
-    const values = item.in.map((items) => {
-      return req[item][key];
+    const values = item.in.map((item1) => {
+      return req[item1][key];
     });
 
     if (item && item.required) {
