@@ -1,4 +1,5 @@
 import * as jwt from 'jsonwebtoken';
+import { userModel } from './../../repositories/user/UserModel';
 import UserRepository from './../../repositories/user/UserRepository';
 import hasPermission from './permissions';
 
@@ -17,11 +18,11 @@ export default (module, permissionType) => (req, res, next) => {
   //   next({ status: 403, message: "Unauthorized Access" });
   // }
   // })
-  const repository = new UserRepository();
+  const repository = new UserRepository(userModel);
   try {
   const user = jwt.verify(token, process.env.key);
   const { _id } = user;
-  repository.findOne({ _id }).then((result) => {
+  repository.findOne({ _id}).then((result) => {
     if (result.name !== module ) {
       next({
         error: 'Unauthorized Access',
