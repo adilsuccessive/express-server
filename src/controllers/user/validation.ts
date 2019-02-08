@@ -15,6 +15,16 @@ const validation = {
         required: true,
       },
     },
+    createToken: {
+      emailId: {
+        in: ['body'],
+        required: true,
+      },
+      pass: {
+        in: ['body'],
+        required: true,
+      },
+    },
     delete: {
       id: {
         errorMessage: 'Id is required',

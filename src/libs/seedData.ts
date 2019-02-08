@@ -5,7 +5,6 @@ import { userModel } from './../repositories/user/UserModel';
 export default function seedData() {
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
-  console.log(process.env.PASSWORD);
   const pass = bcrypt.hashSync(process.env.PASSWORD, salt);
 
   const user = new UserRepository(userModel);

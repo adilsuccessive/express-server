@@ -1,13 +1,13 @@
 import * as express from 'express';
 import { tokenRoutes } from '../../libs/routes';
-import { validationHandler } from '../../libs/routes';
-import { authMiddleWare } from '../../libs/routes';
+import { authMiddleWare, validationHandler } from '../../libs/routes';
 import user from './Controller';
 import validation from './validation';
 
 export const userRouter = express.Router();
 userRouter
-  .get('/', validationHandler(validation.get), user.get)
-  .post('/', validationHandler(validation.create), tokenRoutes, user.post)
-  .put('/', validationHandler(validation.update), user.put)
-  .delete('/:id', validationHandler(validation.delete), user.delete);
+  .get('/', authMiddleWare('traineee', 'read'), validationHandler(validation.get), user.get)
+  .post('/', authMiddleWare('traineee', 'write'), validationHandler(validation.create), user.post)
+  .post('/login', validationHandler(validation.createToken), tokenRoutes, user.createToken)
+  .put('/', authMiddleWare('traineee', 'write'), validationHandler(validation.update), user.put)
+  .delete('/:id', authMiddleWare('traineee', 'delete'), validationHandler(validation.delete), user.delete);

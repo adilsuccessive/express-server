@@ -12,29 +12,25 @@ export default class VersionRepository<D extends mongoose.Document, M extends mo
         const id = this.generateObjectId();
         return this.model.create({...data, _id: id, originalId: id});
     }
-    public delete(data) {
-        console.log(data._id);
-        return this.findOne({originalId: data._id, deletedAt: undefined}).then((result) => {
-            this.model.updateOne( {_id: result._id}, {$set: {deletedAt: true}}, {upsert: true}, (err) => {
-                console.log('error'); } );
-        });
+    public async delete(data): Promise<D> {
+        const result = await this.findOne({originalId: data._id, deletedAt: undefined});
+        this.model.updateOne( {_id: result._id}, {$set: {deletedAt: true}}, {upsert: true}, (updated) => {
+                console.log(updated); } );
+        return (result);
       }
-      public updateUser(data) {
-        return  this.findOne({originalId: data.originalId, deletedAt: undefined}).lean()
-        .then( (result) => {
-           this.createUser(Object.assign(result,  data.name)).then( (result1) => {
-            this.model.updateOne( {_id: result1._id}, {originalId: data.originalId, createdAt: Date.now()}, (err) => {
-                if (err) {
-                console.log(err);
+      public async updateUser(data): Promise<D> {
+        const result = await this.findOne({originalId: data.originalId, deletedAt: undefined}).lean();
+        const result1 = await this.createUser(Object.assign(result,  data.name));
+        this.model.updateOne( {_id: result1._id}, {originalId: data.originalId, createdAt: Date.now()}, (err) => {
+            if (err) {
+               console.log(err);
                 }
             } );
-           });
-           this.model.updateOne({_id: result._id},
+        this.model.updateOne({_id: result._id},
             {$set: { deletedAt: true}}, {upsert: true}).then((err) => {
            console.log(err);
        });
-        });
-
+        return (result);
       }
       public getUser(data) {
         return this.model.findById(data, (err) => {
@@ -48,5 +44,10 @@ export default class VersionRepository<D extends mongoose.Document, M extends mo
       }
       public findOne(query) {
         return this.model.findOne(query);
+      }
+      public findUser(value1, value2, role) {
+          return this.model.find(role, undefined, { skip: +(value1), limit: +(value2)}, (err) => {
+              console.log('error');
+          });
       }
 }

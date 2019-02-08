@@ -1,5 +1,5 @@
 export interface IPermissions {
-    [trainee: string]: {
+    [traineee: string]: {
       all: string[];
       read: string[];
       write: string[];

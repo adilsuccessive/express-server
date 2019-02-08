@@ -7,7 +7,6 @@ import UserRepository from './../../repositories/user/UserRepository';
 const userRepository = new UserRepository(userModel);
 export default (req: Request, res: Response, next: NextFunction) => {
     const { emailId, pass } = req.body;
-    console.log(emailId, pass);
     userRepository.findData({ email: emailId }).then((result) => {
     if (!result) {
         next({
@@ -20,7 +19,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
     if (bcrypt.compareSync(pass, password)) {
         const token = jwt.sign({result}, process.env.key, { expiresIn: 15 * 60 });
         req.token = token;
-        console.log(token);
         next();
         }
         else {
