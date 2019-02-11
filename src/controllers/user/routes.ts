@@ -1,6 +1,5 @@
 import * as express from 'express';
-import { tokenRoutes } from '../../libs/routes';
-import { authMiddleWare, validationHandler } from '../../libs/routes';
+import { authMiddleWare, tokenRoutes, validationHandler } from '../../libs/routes';
 import user from './Controller';
 import validation from './validation';
 
