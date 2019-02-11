@@ -21,9 +21,9 @@ export default (module, permissionType) => (req, res, next) => {
   const repository = new UserRepository(userModel);
   try {
   const user = jwt.verify(token, process.env.key);
-  const { _id } = user;
-  repository.findOne({ _id}).then((result) => {
-    if (result.name !== module ) {
+  const { _id, name } = user;
+  repository.findOne({ originalId: _id}).then((result) => {
+    if (result.name !== name ) {
       next({
         error: 'Unauthorized Access',
         message: 'User not match',
@@ -32,7 +32,7 @@ export default (module, permissionType) => (req, res, next) => {
     } else if (!hasPermission(module, result.role, permissionType)) {
       next({ status: 401, message: 'Wrong Permission' });
     } else {
-      req.body = result.id;
+      req.body.newId = result.id;
       next();
     }
   });

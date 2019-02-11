@@ -16,6 +16,10 @@ export default class VersionableSchema extends mongoose.Schema {
                 required: true,
                 type: String,
             },
+            password: {
+                required: false,
+                type: String,
+            },
         }, option);
         super(versionSchema, collections);
     }

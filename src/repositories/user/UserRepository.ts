@@ -18,4 +18,7 @@ export default class UserRepository extends VersionRepository <IUserModel, mongo
   public countData() {
       return super.count();
   }
+  public find(value1, value2, role) {
+      return super.findUser(value1, value2, role);
+  }
 }
